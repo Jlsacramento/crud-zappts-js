@@ -31,6 +31,10 @@ class CardFacade {
   async show(req, res) {
     const response = await this.findByPk(req, res);
 
+    if(!response) {
+      return res.status(404).json({ message: "A cartinha não foi encontrada."});
+    }
+
     return res.json(response);
   }
 
