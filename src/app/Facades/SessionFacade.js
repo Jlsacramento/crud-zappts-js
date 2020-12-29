@@ -26,9 +26,6 @@ class SessionFacade {
 
     return user;
   }
-
-  async create(req, res) {
-  }
 }
 
 module.exports = new SessionFacade();
