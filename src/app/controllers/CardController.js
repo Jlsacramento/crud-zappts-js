@@ -1,56 +1,24 @@
-const { Card } = require("../models");
+const CardFacade = require("../Facades/CardFacade");
 
 class CardController {
   async index(req, res) {
-    const cards = await Card.findAll();
-
-    return res.json(cards);
+    return await CardFacade.index(req, res);
   }
 
   async store(req, res) {
-    const card = await Card.create(req.body);
-
-    return res.status(201).json(card);
+    return await CardFacade.store(req, res);
   }
 
   async show(req, res) {
-    const {id} = req.params;
-
-    const card = await Card.findByPk(id);
-
-    if(!card) {
-      return res.status(404).json({ message: "A cartinha não foi encontrada."});
-    }
-
-    return res.json(card);
-
+    return await CardFacade.show(req, res);
   }
 
   async update(req, res) {
-    const {id} = req.params;
-
-    const card = await Card.findByPk(id);
-
-    if(!card) {
-      return res.status(404).json({ message: "A cartinha não foi encontrada."});
-    }
-
-    const newCard = await card.update(req.body);
-
-    return res.json(newCard);
+    return await CardFacade.update(req, res);
   }
 
   async destroy(req, res) {
-    const card = await Card.destroy({
-      where:{
-        id: req.params.id
-      }
-    })
-
-    if(card) {
-      return res.json({ message: "Cartinha excluída com sucesso." })
-    }
-    return res.status(400).json({ message: "Não foi possível excluir a cartinha." });
+    return await CardFacade.destroy(req, res);
   }
 }
 
